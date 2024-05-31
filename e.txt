@@ -1,0 +1,52 @@
+### Email to the Team
+
+Subject: Summary and Proposal on Host Key Issue
+
+Dear Team,
+
+I would like to summarize the recent meeting, discussions, and investigations regarding the host key issue and present a proposal for moving forward.
+
+### What is a Host Key?
+
+A host key is a cryptographic key used to verify the identity of a server in SSH connections. It ensures that the client is connecting to the intended server and not to an imposter.
+
+### Why Use a Host Key?
+
+The primary reasons for using a host key are to enhance security by preventing man-in-the-middle attacks and ensuring the integrity of the server-client connection.
+
+### How to Use Host Key in VM and Java Application with JSch Library
+
+**Using Host Key in a Virtual Machine (VM):**
+- Ensure the host key is securely stored in the `~/.ssh/known_hosts` file 
+
+**Using Host Key in a Java Application with JSch Library:**
+- **When to Use**: Use a host key whenever establishing SSH connections to verify the server's identity.
+- **Where to Store**: Store the host key securely in vault or in a secure storage solution. 
+- **Implementation**:
+  ```java
+  JSch jsch = new JSch();
+  //retrieve server host key from Vault
+  //create host key Java object
+  HostKey hostKey = new HostKey("server-hostname", Base64.getDecoder().decode(serverHostKey));
+  //add hostkey java object into hostkey repository
+  jsch.getHostKeyRepository().add(hostKey, null);
+  ```
+
+### Proposal to Use Host Key in Java Application
+
+My proposal is to implement the use of host keys in our Java applications for the following reasons:
+
+1. **Enhanced Security**: Adding a host key adds an additional layer of protection, reducing the risk of security breaches.
+2. **Ease of Use**: Implementing host key verification in Java applications using the JSch library is straightforward.
+3. **Client Expectation**: The Tibco team sends the host key to client teams, expecting them to use it for secure connections.
+
+### Request for Feedback
+
+I would appreciate your feedback on this proposal. Please let me know if you agree with this approach or if you have any suggestions 
+or concerns. Your input is valuable to ensure we adopt the best practices for our security protocols.
+
+Best regards,
+
+[Your Name]
+
+[Your Position]
